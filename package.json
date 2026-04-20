@@ -4,21 +4,22 @@
   "description": "Tabnews - recriando o Tabnews do zero para o curso.dev",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "next dev",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watchAll"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "next": "^13.1.6",
+    "pg": "^8.11.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "prettier": "^3.8.3"
+    "prettier": "^3.8.3",
+    "jest": "^29.6.2"
   }
 }
