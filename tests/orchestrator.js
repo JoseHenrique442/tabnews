@@ -8,7 +8,7 @@ async function waitForAllServices() {
       retries: 100,
       minTimeout: 990,
       maxTimeout: 1000,
-    })
+    });
 
     async function fetchStatusPage() {
       const response = await fetch("http://localhost:3000/api/v1/status");
@@ -21,5 +21,5 @@ async function waitForAllServices() {
 }
 
 export default {
-  waitForAllServices
-}
+  waitForAllServices,
+};
