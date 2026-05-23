@@ -6,7 +6,7 @@ beforeAll(async () => {
   await database.query("DROP SCHEMA public cascade; CREATE SCHEMA public;");
 });
 
-test("POST to /api/v1/migrations deve retornar 200 OK", async () => {
+test("POST to /api/v1/migrations deve retornar 201 OK", async () => {
   const response1 = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "POST",
   });
