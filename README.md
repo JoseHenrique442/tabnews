@@ -12,6 +12,10 @@
 
 A grande sacada de uma boa arquitetura é que ela seja modificável. Modificável no sentido de não ter amarras ou travas que possam prejudicar o projeto no processo de evolução. Nesse escopo, temos as variáveis como: gestão de pessoas e conhecimento, linguagem, arquitetura, modelagem, testes, etc
 
+### Atualização de Pacotes
+
+- npm-check-updates -i
+
 ### Organização de Pastas
 
 📦root/
