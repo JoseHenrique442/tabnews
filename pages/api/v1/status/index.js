@@ -1,8 +1,9 @@
 import database from "infra/database.js";
-import { InternalServerError } from "infra/errors.js";
+import { InternalServerError } from "infra/errors.js"
 
 async function Status(request, response) {
   try {
+
     const updatedAt = new Date().toISOString();
 
     const databaseVersionResult = await database.query("SHOW server_version;");
@@ -35,10 +36,7 @@ async function Status(request, response) {
   } catch (error) {
     const publicErrorObject = new InternalServerError({
       cause: error,
-      error: "Internal Server Error",
-      message: "Internal Server Error",
-      action: "Internal Server Error",
-      status: "Internal Server Error",
+
     });
 
     console.log("\n Erro dentro do catch do Controller de Status:");
