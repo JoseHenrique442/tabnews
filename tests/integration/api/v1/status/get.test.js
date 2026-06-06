@@ -15,9 +15,9 @@ describe("GET /api/v1/status", () => {
       const parseUpdatedAt = new Date(responseBody.updated_at).toISOString();
       expect(responseBody.updated_at).toEqual(parseUpdatedAt);
 
-      expect(responseBody.depencencies.database.version).toEqual("16.13");
-      expect(responseBody.depencencies.database.max_connections).toEqual(100);
-      expect(responseBody.depencencies.database.opened_connections).toEqual(1);
+      expect(responseBody.dependencies.database.version).toEqual("16.13");
+      expect(responseBody.dependencies.database.max_connections).toEqual(100);
+      expect(responseBody.dependencies.database.opened_connections).toEqual(1);
     });
   });
 });
