@@ -21,13 +21,10 @@ describe("POST /api/v1/users", () => {
       });
 
       const users = await database.query("SELECT * FROM users");
-      console.log(users.rows)
-      const response = await fetch(
-        "http://localhost:3000/api/v1/users",
-        {
-          method: "POST",
-        },
-      );
+      console.log(users.rows);
+      const response = await fetch("http://localhost:3000/api/v1/users", {
+        method: "POST",
+      });
       expect(response.status).toBe(201);
     });
   });
