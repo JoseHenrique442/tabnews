@@ -1,8 +1,7 @@
 import database from "infra/database";
-import { ValidationError } from "infra/errors.js"
+import { ValidationError } from "infra/errors.js";
 
 async function create(userInputValues) {
-
   await validateUniqueEmail(userInputValues.email);
   await validateUniqueUsername(userInputValues.username);
 
@@ -26,7 +25,7 @@ async function create(userInputValues) {
       throw new ValidationError({
         message: "Username informado já está sendo utilizado.",
         action: "Utilize outro Username para realizar o cadastro.",
-      })
+      });
     }
   }
 
@@ -47,7 +46,7 @@ async function create(userInputValues) {
       throw new ValidationError({
         message: "E-mail informado já está sendo utilizado.",
         action: "Utilize outro e-mail para realizar o cadastro.",
-      })
+      });
     }
   }
 
@@ -63,7 +62,7 @@ async function create(userInputValues) {
       values: [
         userInputValues.username,
         userInputValues.email,
-        userInputValues.password
+        userInputValues.password,
       ],
     });
     return results.rows[0];
@@ -72,6 +71,6 @@ async function create(userInputValues) {
 
 const user = {
   create,
-}
+};
 
 export default user;
