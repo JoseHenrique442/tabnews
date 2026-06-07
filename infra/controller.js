@@ -1,10 +1,9 @@
-import { InternalServerError, MethodNotAllowedError } from "infra/errors.js"
+import { InternalServerError, MethodNotAllowedError } from "infra/errors.js";
 
 function onErrorHandler(error, request, response) {
   const publicErrorObject = new InternalServerError({
     cause: error,
     statusCode: error.statusCode,
-
   });
   console.log(publicErrorObject);
 
@@ -20,7 +19,7 @@ const controller = {
   errorHandlers: {
     onNoMatch: onNoMatchHandler,
     onError: onErrorHandler,
-  }
+  },
 };
 
 export default controller;

@@ -1,10 +1,8 @@
 import migrationRunner from "node-pg-migrate";
 import { resolve } from "node:path";
 import database from "infra/database.js";
-import { createRouter } from "next-connect"
+import { createRouter } from "next-connect";
 import controller from "infra/controller.js";
-
-
 
 const router = createRouter();
 
@@ -52,7 +50,6 @@ async function postHandler(request, response) {
       return response.status(201).json(migratedMigrations);
     }
     return response.status(200).json(migratedMigrations);
-
   } finally {
     await dbClient.end();
   }

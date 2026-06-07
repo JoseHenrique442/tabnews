@@ -1,8 +1,6 @@
 import database from "infra/database.js";
-import { createRouter } from "next-connect"
+import { createRouter } from "next-connect";
 import controller from "infra/controller.js";
-
-
 
 const router = createRouter();
 
