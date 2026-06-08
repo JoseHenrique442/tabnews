@@ -23,7 +23,9 @@ describe("GET /api/v1/users/[username]", () => {
       });
       expect(response1.status).toBe(201);
 
-      const response2 = await fetch("http://localhost:3000/api/v1/users/MesmoCase");
+      const response2 = await fetch(
+        "http://localhost:3000/api/v1/users/MesmoCase",
+      );
       expect(response2.status).toBe(200);
 
       const response2Body = await response2.json();
@@ -39,7 +41,6 @@ describe("GET /api/v1/users/[username]", () => {
       expect(uuidVersion(response2Body.id)).toBe(4);
       expect(Date.parse(response2Body.created_at)).not.toBeNaN();
       expect(Date.parse(response2Body.updated_at)).not.toBeNaN();
-
     });
 
     test("With case mismatch", async () => {
@@ -56,7 +57,9 @@ describe("GET /api/v1/users/[username]", () => {
       });
       expect(response1.status).toBe(201);
 
-      const response2 = await fetch("http://localhost:3000/api/v1/users/casediferente");
+      const response2 = await fetch(
+        "http://localhost:3000/api/v1/users/casediferente",
+      );
       expect(response2.status).toBe(200);
 
       const response2Body = await response2.json();
@@ -72,12 +75,12 @@ describe("GET /api/v1/users/[username]", () => {
       expect(uuidVersion(response2Body.id)).toBe(4);
       expect(Date.parse(response2Body.created_at)).not.toBeNaN();
       expect(Date.parse(response2Body.updated_at)).not.toBeNaN();
-
     });
 
     test("With non existent username", async () => {
-
-      const response2 = await fetch("http://localhost:3000/api/v1/users/UsuarioInexistente");
+      const response2 = await fetch(
+        "http://localhost:3000/api/v1/users/UsuarioInexistente",
+      );
       expect(response2.status).toBe(404);
 
       const response2Body = await response2.json();

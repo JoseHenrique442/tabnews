@@ -27,8 +27,7 @@ async function findOneByUsername(username) {
       });
     }
 
-    return results.rows[0]
-
+    return results.rows[0];
   }
 }
 
