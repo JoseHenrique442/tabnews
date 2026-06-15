@@ -1,7 +1,6 @@
 import user from "models/user.js";
 import password from "models/password.js";
-import { NotFoundError, UnauthorizedError } from "infra/errors.js"
-
+import { NotFoundError, UnauthorizedError } from "infra/errors.js";
 
 async function getAuthenticateUser(providedEmail, providedPassword) {
   try {
@@ -13,7 +12,7 @@ async function getAuthenticateUser(providedEmail, providedPassword) {
     if (error instanceof UnauthorizedError) {
       throw new UnauthorizedError({
         message: "Dados de autenticação não conferem.",
-        action: "Verifique se os dados enviados estão corretos."
+        action: "Verifique se os dados enviados estão corretos.",
       });
     }
 
@@ -28,7 +27,7 @@ async function getAuthenticateUser(providedEmail, providedPassword) {
       if (error instanceof NotFoundError) {
         throw new UnauthorizedError({
           message: "Email não confere.",
-          action: "Verifique se este dado está correto."
+          action: "Verifique se este dado está correto.",
         });
       }
 
@@ -47,7 +46,7 @@ async function getAuthenticateUser(providedEmail, providedPassword) {
     if (!correctPasswordMatch) {
       throw new UnauthorizedError({
         message: "Senha não confere.",
-        action: "Verifique se este dado está correto."
+        action: "Verifique se este dado está correto.",
       });
     }
   }
@@ -55,6 +54,6 @@ async function getAuthenticateUser(providedEmail, providedPassword) {
 
 const authentication = {
   getAuthenticateUser,
-}
+};
 
 export default authentication;

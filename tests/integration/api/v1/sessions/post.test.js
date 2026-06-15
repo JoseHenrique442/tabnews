@@ -34,7 +34,7 @@ describe("POST /api/v1/sessions", () => {
         message: "Dados de autenticação não conferem.",
         action: "Verifique se os dados enviados estão corretos.",
         status_code: 401,
-      })
+      });
     });
 
     test("With corret 'e-mail', but incorrect 'password'", async () => {
@@ -60,7 +60,7 @@ describe("POST /api/v1/sessions", () => {
         message: "Dados de autenticação não conferem.",
         action: "Verifique se os dados enviados estão corretos.",
         status_code: 401,
-      })
+      });
     });
 
     test("With incorret 'e-mail' and incorrect 'password'", async () => {
@@ -84,13 +84,13 @@ describe("POST /api/v1/sessions", () => {
         message: "Dados de autenticação não conferem.",
         action: "Verifique se os dados enviados estão corretos.",
         status_code: 401,
-      })
+      });
     });
 
     test("With corret 'e-mail' and correct 'password'", async () => {
       const createdUser = await orchestrator.createUser({
         email: "email@correto.com",
-        password: "correta"
+        password: "correta",
       });
 
       const response = await fetch("http://localhost:3000/api/v1/sessions", {
@@ -130,7 +130,7 @@ describe("POST /api/v1/sessions", () => {
 
       const parsedSetCookie = setCookieParser(response, {
         map: true,
-      })
+      });
 
       expect(parsedSetCookie.session_id).toEqual({
         name: "session_id",
