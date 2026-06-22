@@ -1,4 +1,4 @@
-import email from "infra/email.js"
+import email from "infra/email.js";
 import orchestrator from "tests/orchestrator";
 
 beforeAll(async () => {
