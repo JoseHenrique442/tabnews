@@ -6,7 +6,7 @@ import {
   UnauthorizedError,
 } from "infra/errors.js";
 import * as cookie from "cookie";
-import session from "models/session.js"
+import session from "models/session.js";
 
 function onErrorHandler(error, request, response) {
   if (

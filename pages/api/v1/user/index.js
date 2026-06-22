@@ -1,6 +1,6 @@
 import { createRouter } from "next-connect";
 import controller from "infra/controller.js";
-import user from "models/user.js"
+import user from "models/user.js";
 import session from "models/session";
 
 const router = createRouter();
@@ -14,9 +14,12 @@ async function getHandler(request, response) {
 
   const sessionObject = await session.findOneValidByToken(sessionToken);
   const renewedSessionObject = await session.renew(sessionObject.id);
-  controller.setSessionCookie(renewedSessionObject.token, response)
+  controller.setSessionCookie(renewedSessionObject.token, response);
 
   const userFound = await user.findOneById(sessionObject.user_id);
-  response.setHeader("Cache-Control", "no-store, no-cache, max-age=0, must-revalidate");
+  response.setHeader(
+    "Cache-Control",
+    "no-store, no-cache, max-age=0, must-revalidate",
+  );
   return response.status(200).json(userFound);
 }

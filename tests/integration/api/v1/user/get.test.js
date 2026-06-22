@@ -18,8 +18,7 @@ describe("GET /api/v1/user", () => {
 
       const sessionObject = await orchestrator.createSession(createdUser.id);
 
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user", {
+      const response = await fetch("http://localhost:3000/api/v1/user", {
         headers: {
           Cookie: `session_id=${sessionObject.token}`,
         },
@@ -27,7 +26,9 @@ describe("GET /api/v1/user", () => {
       expect(response.status).toBe(200);
 
       const cacheControl = response.headers.get("Cache-Control");
-      expect(cacheControl).toBe("no-store, no-cache, max-age=0, must-revalidate");
+      expect(cacheControl).toBe(
+        "no-store, no-cache, max-age=0, must-revalidate",
+      );
 
       const responseBody = await response.json();
 
@@ -44,10 +45,16 @@ describe("GET /api/v1/user", () => {
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
 
       // Session renewed assertions
-      const renewedSessionObject = await session.findOneValidByToken(sessionObject.token)
+      const renewedSessionObject = await session.findOneValidByToken(
+        sessionObject.token,
+      );
 
-      expect(renewedSessionObject.expires_at > sessionObject.expires_at).toBe(true);
-      expect(renewedSessionObject.updated_at > sessionObject.updated_at).toBe(true);
+      expect(renewedSessionObject.expires_at > sessionObject.expires_at).toBe(
+        true,
+      );
+      expect(renewedSessionObject.updated_at > sessionObject.updated_at).toBe(
+        true,
+      );
 
       // Set-Cookies assertions
       const parsedSetCookie = setCookieParser(response, {
@@ -61,14 +68,13 @@ describe("GET /api/v1/user", () => {
         path: "/",
         httpOnly: true,
       });
-
     });
 
     test("With nonexisting session", async () => {
-      const nonexistingToken = "5ddd2585615c989e11a4480bdb772baee5a6ead6daa25bd154c4b5c01390d8cf3ce1d8f6a565912456175d7b36a68a3a";
+      const nonexistingToken =
+        "5ddd2585615c989e11a4480bdb772baee5a6ead6daa25bd154c4b5c01390d8cf3ce1d8f6a565912456175d7b36a68a3a";
 
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user", {
+      const response = await fetch("http://localhost:3000/api/v1/user", {
         headers: {
           Cookie: `session_id=${nonexistingToken}`,
         },
@@ -98,8 +104,7 @@ describe("GET /api/v1/user", () => {
 
       jest.useRealTimers();
 
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user", {
+      const response = await fetch("http://localhost:3000/api/v1/user", {
         headers: {
           Cookie: `session_id=${sessionObject.token}`,
         },
@@ -118,7 +123,7 @@ describe("GET /api/v1/user", () => {
 
     test("With half-life session", async () => {
       jest.useFakeTimers({
-        now: new Date(Date.now() - (session.EXPIRATION_IN_MILLISECONDS / 2)),
+        now: new Date(Date.now() - session.EXPIRATION_IN_MILLISECONDS / 2),
       });
       const createdUser = await orchestrator.createUser({
         username: "UserWithSession15Day",
@@ -127,8 +132,7 @@ describe("GET /api/v1/user", () => {
       const sessionObject = await orchestrator.createSession(createdUser.id);
       jest.useRealTimers();
 
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user", {
+      const response = await fetch("http://localhost:3000/api/v1/user", {
         headers: {
           Cookie: `session_id=${sessionObject.token}`,
         },
@@ -150,10 +154,16 @@ describe("GET /api/v1/user", () => {
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
 
       // Session renewed assertions
-      const renewedSessionObject = await session.findOneValidByToken(sessionObject.token)
+      const renewedSessionObject = await session.findOneValidByToken(
+        sessionObject.token,
+      );
 
-      expect(renewedSessionObject.expires_at > sessionObject.expires_at).toBe(true);
-      expect(renewedSessionObject.updated_at > sessionObject.updated_at).toBe(true);
+      expect(renewedSessionObject.expires_at > sessionObject.expires_at).toBe(
+        true,
+      );
+      expect(renewedSessionObject.updated_at > sessionObject.updated_at).toBe(
+        true,
+      );
 
       // Set-Cookies assertions
       const parsedSetCookie = setCookieParser(response, {
@@ -167,7 +177,6 @@ describe("GET /api/v1/user", () => {
         path: "/",
         httpOnly: true,
       });
-
     });
   });
 });
