@@ -20,7 +20,7 @@ describe("infra/email.js", () => {
     await email.send({
       from: "Tabnews <josealves809.1@gmail.com>",
       to: "contato@curso.dev",
-      subject: "Teste 2",
+      subject: "Ative a sua conta!",
       text: "SMTP na unha 2.",
       // html: "",
     });
@@ -29,7 +29,7 @@ describe("infra/email.js", () => {
 
     expect(lastEmail.sender).toBe("<josealves809.1@gmail.com>");
     expect(lastEmail.recipients[0]).toBe("<contato@curso.dev>");
-    expect(lastEmail.subject).toBe("Teste 2");
+    expect(lastEmail.subject).toBe("Ative a sua conta!");
     expect(lastEmail.text).toBe("SMTP na unha 2.\n");
   });
 });
