@@ -1,6 +1,6 @@
-import user from "models/user.js"
-import email from "infra/email.js"
-import database from "infra/database.js"
+import user from "models/user.js";
+import email from "infra/email.js";
+import database from "infra/database.js";
 import webserver from "infra/webserver";
 import authorization from "models/authorization.js";
 import { ForbiddenError, NotFoundError } from "infra/errors";
@@ -65,7 +65,8 @@ async function findOneByValidId(tokenId) {
 
     if (results.rowCount === 0) {
       throw new NotFoundError({
-        message: "O token de ativação utilizado não foi encontrado no sistema ou expirou.",
+        message:
+          "O token de ativação utilizado não foi encontrado no sistema ou expirou.",
         action: "Faça um novo cadastro.",
       });
     }
@@ -99,7 +100,6 @@ async function markTokenAsUsed(activationTokenId) {
 }
 
 async function activateUserByUserId(userId) {
-
   const userToActivate = await user.findOneById(userId);
 
   if (!authorization.can(userToActivate, "read:activation_token")) {
@@ -124,6 +124,6 @@ const activation = {
   activateUserByUserId,
   create,
   EXPIRATION_IN_MILLISECONDS,
-}
+};
 
 export default activation;

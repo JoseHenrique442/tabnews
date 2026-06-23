@@ -18,6 +18,6 @@ function can(user, feature, resource) {
 
 const authorization = {
   can,
-}
+};
 
 export default authorization;

@@ -32,8 +32,7 @@ exports.up = (pgm) => {
       notNull: true,
       default: pgm.func("timezone('utc', now())"),
     },
-
-  })
+  });
 };
 
 exports.down = false;

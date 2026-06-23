@@ -31,10 +31,10 @@ describe("PATCH /api/v1/users/[username]", () => {
       const responseBody = await response.json();
 
       expect(responseBody).toEqual({
-        "action": 'Verifique se o seu usuário possui a feature "update:user".',
-        "message": "Você não possui permissão para executar esta ação.",
-        "name": "ForbiddenError",
-        "status_code": 403,
+        action: 'Verifique se o seu usuário possui a feature "update:user".',
+        message: "Você não possui permissão para executar esta ação.",
+        name: "ForbiddenError",
+        status_code: 403,
       });
     });
   });
@@ -50,8 +50,8 @@ describe("PATCH /api/v1/users/[username]", () => {
         {
           method: "PATCH",
           headers: {
-            Cookie: `session_id=${sessionObject.token}`
-          }
+            Cookie: `session_id=${sessionObject.token}`,
+          },
         },
       );
       expect(response2.status).toBe(404);
@@ -82,7 +82,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Cookie: `session_id=${sessionObject.token}`
+          Cookie: `session_id=${sessionObject.token}`,
         },
         body: JSON.stringify({
           username: "user1",
@@ -116,7 +116,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Cookie: `session_id=${sessionObject.token}`
+          Cookie: `session_id=${sessionObject.token}`,
         },
         body: JSON.stringify({
           username: "user5",
@@ -127,10 +127,11 @@ describe("PATCH /api/v1/users/[username]", () => {
       const responseBody = await response.json();
 
       expect(responseBody).toEqual({
-        "action": "Verifique se você possui a feature necessária para atualizar outro usuário.",
-        "message": "Você não possui permissão para atualizar outro usuário.",
-        "name": "ForbiddenError",
-        "status_code": 403,
+        action:
+          "Verifique se você possui a feature necessária para atualizar outro usuário.",
+        message: "Você não possui permissão para atualizar outro usuário.",
+        name: "ForbiddenError",
+        status_code: 403,
       });
     });
 
@@ -152,7 +153,7 @@ describe("PATCH /api/v1/users/[username]", () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Cookie: `session_id=${sessionObject.token}`
+            Cookie: `session_id=${sessionObject.token}`,
           },
           body: JSON.stringify({
             email: "email1@name.com",
@@ -182,7 +183,7 @@ describe("PATCH /api/v1/users/[username]", () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Cookie: `session_id=${sessionObject.token}`
+            Cookie: `session_id=${sessionObject.token}`,
           },
           body: JSON.stringify({
             username: "uniqueUser2",
@@ -219,7 +220,7 @@ describe("PATCH /api/v1/users/[username]", () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Cookie: `session_id=${sessionObject.token}`
+            Cookie: `session_id=${sessionObject.token}`,
           },
           body: JSON.stringify({
             email: "uniqueemail2@email.com",
@@ -258,7 +259,7 @@ describe("PATCH /api/v1/users/[username]", () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Cookie: `session_id=${sessionObject.token}`
+            Cookie: `session_id=${sessionObject.token}`,
           },
           body: JSON.stringify({
             password: "newPassword2",
@@ -299,23 +300,30 @@ describe("PATCH /api/v1/users/[username]", () => {
   describe("Privileged User", () => {
     test("With 'privileged user' targeting 'default user'", async () => {
       const privilegedUser = await orchestrator.createUser();
-      const activatedPrivilegedUser = await orchestrator.activateUser(privilegedUser);
-      await orchestrator.addFeaturesToUser(privilegedUser, ["update:user:others"]);
-      const sessionObjectPrivilegedUser = await orchestrator.createSession(activatedPrivilegedUser.id);
+      const activatedPrivilegedUser =
+        await orchestrator.activateUser(privilegedUser);
+      await orchestrator.addFeaturesToUser(privilegedUser, [
+        "update:user:others",
+      ]);
+      const sessionObjectPrivilegedUser = await orchestrator.createSession(
+        activatedPrivilegedUser.id,
+      );
 
       const defaultUser = await orchestrator.createUser();
 
-
-      const response = await fetch(`http://localhost:3000/api/v1/users/${defaultUser.username}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: `session_id=${sessionObjectPrivilegedUser.token}`
+      const response = await fetch(
+        `http://localhost:3000/api/v1/users/${defaultUser.username}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: `session_id=${sessionObjectPrivilegedUser.token}`,
+          },
+          body: JSON.stringify({
+            username: "QualquerCoisa",
+          }),
         },
-        body: JSON.stringify({
-          username: "QualquerCoisa",
-        }),
-      });
+      );
       expect(response.status).toBe(200);
 
       const responseBody = await response.json();

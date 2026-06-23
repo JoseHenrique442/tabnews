@@ -8,7 +8,6 @@ beforeAll(async () => {
 
 describe("infra/email.js", () => {
   test("send()", async () => {
-
     await email.send({
       from: "Tabnews <josealves809.1@gmail.com>",
       to: "contato@curso.dev",

@@ -1,4 +1,4 @@
-import user from "models/user.js"
+import user from "models/user.js";
 import activation from "models/activation";
 import webserver from "infra/webserver";
 import orchestrator from "tests/orchestrator";
@@ -29,7 +29,7 @@ describe("Use case: Registration Flow (All successfful)", () => {
             email: "registration-flow@gmail.com",
             password: "registrationflowpassword",
           }),
-        }
+        },
       );
 
       expect(createUserResponse.status).toBe(201);
@@ -56,10 +56,11 @@ describe("Use case: Registration Flow (All successfful)", () => {
 
       activationTokenId = orchestrator.extractUUID(lastEmail.text);
       expect(lastEmail.text).toContain(
-        `${webserver.origin}/cadastro/ativar/${activationTokenId}`
+        `${webserver.origin}/cadastro/ativar/${activationTokenId}`,
       );
 
-      const activationTokenObject = await activation.findOneByValidId(activationTokenId);
+      const activationTokenObject =
+        await activation.findOneByValidId(activationTokenId);
       expect(activationTokenObject.user_id).toBe(createUserResponseBody.id);
       expect(activationTokenObject.used_at).toBe(null);
     });
@@ -79,7 +80,11 @@ describe("Use case: Registration Flow (All successfful)", () => {
       expect(Date.parse(activationResponseBody.used_at)).not.toBeNaN();
 
       const activatedUser = await user.findOneByUsername("RegistrationFlow");
-      expect(activatedUser.features).toEqual(["create:session", "read:session", "update:user"]);
+      expect(activatedUser.features).toEqual([
+        "create:session",
+        "read:session",
+        "update:user",
+      ]);
     });
 
     test("Login", async () => {
@@ -101,20 +106,21 @@ describe("Use case: Registration Flow (All successfful)", () => {
 
       createSessionsResponseBody = await createSessionsResponse.json();
 
-      expect(createSessionsResponseBody.user_id).toBe(createUserResponseBody.id);
+      expect(createSessionsResponseBody.user_id).toBe(
+        createUserResponseBody.id,
+      );
     });
 
     test("Get User information", async () => {
       const userResponse = await fetch("http://localhost:3000/api/v1/user", {
         headers: {
-          cookie: `session_id=${createSessionsResponseBody.token}`
+          cookie: `session_id=${createSessionsResponseBody.token}`,
         },
       });
       expect(userResponse.status).toBe(200);
 
       const userResponseBody = await userResponse.json();
-      expect(userResponseBody.id).toBe(createUserResponseBody.id)
-
+      expect(userResponseBody.id).toBe(createUserResponseBody.id);
     });
   });
 });

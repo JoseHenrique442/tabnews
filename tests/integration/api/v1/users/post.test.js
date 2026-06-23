@@ -141,12 +141,12 @@ describe("POST /api/v1/users", () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Cookie: `session_id=${user1SessionObject.token}`
+          Cookie: `session_id=${user1SessionObject.token}`,
         },
         body: JSON.stringify({
           username: "usuariologado",
           email: "usuariologado@gmail.com",
-          password: "senha123"
+          password: "senha123",
         }),
       });
       expect(user2Response.status).toBe(403);
@@ -159,6 +159,6 @@ describe("POST /api/v1/users", () => {
         action: 'Verifique se o seu usuário possui a feature "create:user".',
         status_code: 403,
       });
-    })
+    });
   });
 });

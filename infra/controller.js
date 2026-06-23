@@ -8,11 +8,15 @@ import {
 } from "infra/errors.js";
 import * as cookie from "cookie";
 import session from "models/session.js";
-import user from "models/user.js"
-import authorization from "models/authorization.js"
+import user from "models/user.js";
+import authorization from "models/authorization.js";
 
 function onErrorHandler(error, request, response) {
-  if (error instanceof ValidationError || error instanceof NotFoundError || error instanceof ForbiddenError) {
+  if (
+    error instanceof ValidationError ||
+    error instanceof NotFoundError ||
+    error instanceof ForbiddenError
+  ) {
     return response.status(error.statusCode).json(error);
   }
 
@@ -102,7 +106,6 @@ function canRequest(feature) {
     });
   };
 }
-
 
 const controller = {
   errorHandlers: {
