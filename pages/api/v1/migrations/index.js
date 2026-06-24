@@ -15,7 +15,11 @@ async function getHandler(request, response) {
   const userTryingToGet = request.context.user;
   const pendingMigrations = await migrator.listPendingMigrations();
 
-  const secureOutputValues = authorization.filterOutput(userTryingToGet, "read:migrations", pendingMigrations);
+  const secureOutputValues = authorization.filterOutput(
+    userTryingToGet,
+    "read:migrations",
+    pendingMigrations,
+  );
 
   return response.status(200).json(secureOutputValues);
 }
@@ -24,7 +28,11 @@ async function postHandler(request, response) {
   const userTryingToPost = request.context.user;
   const migratedMigrations = await migrator.runPendingMigrations();
 
-  const secureOutputValues = authorization.filterOutput(userTryingToPost, "read:migrations", migratedMigrations);
+  const secureOutputValues = authorization.filterOutput(
+    userTryingToPost,
+    "read:migrations",
+    migratedMigrations,
+  );
 
   if (migratedMigrations.length > 0) {
     return response.status(201).json(secureOutputValues);

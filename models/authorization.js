@@ -15,14 +15,14 @@ const availableFeatures = [
   // ACTIVATION TOKEN
   "read:activation_token",
 
-  // MIGRATIONS 
+  // MIGRATIONS
   "create:migrations",
   "read:migrations",
 
   // STATUS
   "read:status",
   "read:status:all",
-]
+];
 function can(user, feature, resource) {
   validateUser(user);
   validateFeature(feature);
@@ -57,7 +57,7 @@ function filterOutput(user, feature, resource) {
       created_at: resource.created_at,
       updated_at: resource.updated_at,
     };
-  };
+  }
 
   if (feature === "read:user:self") {
     if (user.id === resource.id) {
@@ -69,8 +69,8 @@ function filterOutput(user, feature, resource) {
         created_at: resource.created_at,
         updated_at: resource.updated_at,
       };
-    };
-  };
+    }
+  }
 
   if (feature === "read:session") {
     if (user.id === resource.user_id) {
@@ -82,8 +82,8 @@ function filterOutput(user, feature, resource) {
         created_at: resource.created_at,
         updated_at: resource.updated_at,
       };
-    };
-  };
+    }
+  }
 
   if (feature === "read:activation_token") {
     return {
@@ -94,7 +94,7 @@ function filterOutput(user, feature, resource) {
       expires_at: resource.expires_at,
       used_at: resource.used_at,
     };
-  };
+  }
 
   if (feature === "read:migrations") {
     return resource.map((migration) => {
@@ -104,7 +104,7 @@ function filterOutput(user, feature, resource) {
         timestamp: migration.timestamp,
       };
     });
-  };
+  }
 
   if (feature === "read:status") {
     const output = {
@@ -114,21 +114,22 @@ function filterOutput(user, feature, resource) {
           max_connections: resource.dependencies.database.max_connections,
           opened_connections: resource.dependencies.database.opened_connections,
         },
-      }
-    }
+      },
+    };
 
     if (can(user, "read:status:all")) {
-      output.dependencies.database.version = resource.dependencies.database.version;
+      output.dependencies.database.version =
+        resource.dependencies.database.version;
     }
 
     return output;
-  };
-};
+  }
+}
 
 function validateUser(user) {
   if (!user || !user.features) {
     throw new InternalServerError({
-      cause: "É necessário fornecer `user` no model `authorization`."
+      cause: "É necessário fornecer `user` no model `authorization`.",
     });
   }
 }
@@ -136,7 +137,7 @@ function validateUser(user) {
 function validateFeature(feature) {
   if (!feature || !availableFeatures.includes(feature)) {
     throw new InternalServerError({
-      cause: "É necessário fornecer `feature` no model `authorization`."
+      cause: "É necessário fornecer `feature` no model `authorization`.",
     });
   }
 }
@@ -144,11 +145,10 @@ function validateFeature(feature) {
 function validateResource(resource) {
   if (!resource) {
     throw new InternalServerError({
-      cause: "É necessário fornecer `resource` no model `authorization`."
+      cause: "É necessário fornecer `resource` no model `authorization`.",
     });
   }
 }
-
 
 const authorization = {
   can,

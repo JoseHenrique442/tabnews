@@ -12,7 +12,7 @@ describe("models/authorization.js", () => {
     test("Without `user.features`", () => {
       const createdUser = {
         username: "WithoutFeatures",
-      }
+      };
       expect(() => {
         authorization.can(createdUser);
       }).toThrow(InternalServerError);
@@ -21,7 +21,7 @@ describe("models/authorization.js", () => {
     test("Without unknow `features`", () => {
       const createdUser = {
         features: [],
-      }
+      };
       expect(() => {
         authorization.can(createdUser, "unknow:feature");
       }).toThrow(InternalServerError);
@@ -30,7 +30,7 @@ describe("models/authorization.js", () => {
     test("With `valid` user and know `feature`", () => {
       const createdUser = {
         features: ["create:user"],
-      }
+      };
       expect(authorization.can(createdUser, "create:user")).toBe(true);
     });
   });
@@ -45,7 +45,7 @@ describe("models/authorization.js", () => {
     test("Without `user.features`", () => {
       const createdUser = {
         username: "WithoutFeatures",
-      }
+      };
       expect(() => {
         authorization.filterOutput(createdUser);
       }).toThrow(InternalServerError);
@@ -54,7 +54,7 @@ describe("models/authorization.js", () => {
     test("Without unknow `features`", () => {
       const createdUser = {
         features: [],
-      }
+      };
       expect(() => {
         authorization.filterOutput(createdUser, "unknow:feature");
       }).toThrow(InternalServerError);
@@ -63,7 +63,7 @@ describe("models/authorization.js", () => {
     test("Without valid user, know `features`, but no `resource`", () => {
       const createdUser = {
         features: ["read:user"],
-      }
+      };
       expect(() => {
         authorization.filterOutput(createdUser, "read:user");
       }).toThrow(InternalServerError);
@@ -72,7 +72,7 @@ describe("models/authorization.js", () => {
     test("With `valid` user, know `feature` and `resource`", () => {
       const createdUser = {
         features: ["read:user"],
-      }
+      };
 
       const resource = {
         id: 1,
@@ -82,9 +82,13 @@ describe("models/authorization.js", () => {
         updated_at: "2026-0101T00:00:00.000Z",
         email: "resource@email.com",
         password: "resource",
-      }
+      };
 
-      const result = authorization.filterOutput(createdUser, "read:user", resource)
+      const result = authorization.filterOutput(
+        createdUser,
+        "read:user",
+        resource,
+      );
 
       expect(result).toEqual({
         id: 1,

@@ -19,7 +19,8 @@ describe("POST /api/v1/migrations", () => {
         expect(responseBody).toEqual({
           name: "ForbiddenError",
           message: "Você não possui permissão para executar esta ação.",
-          action: 'Verifique se o seu usuário possui a feature "read:migrations".',
+          action:
+            'Verifique se o seu usuário possui a feature "read:migrations".',
           status_code: 403,
         });
       });
@@ -31,13 +32,18 @@ describe("POST /api/v1/migrations", () => {
       test("Retrieving pending migrations", async () => {
         const createdUser = await orchestrator.createUser();
         const activatedUser = await orchestrator.activateUser(createdUser);
-        const sessionObject = await orchestrator.createSession(activatedUser.id);
+        const sessionObject = await orchestrator.createSession(
+          activatedUser.id,
+        );
 
-        const response = await fetch("http://localhost:3000/api/v1/migrations", {
-          headers: {
-            Cookie: `session_id=${sessionObject.token}`,
+        const response = await fetch(
+          "http://localhost:3000/api/v1/migrations",
+          {
+            headers: {
+              Cookie: `session_id=${sessionObject.token}`,
+            },
           },
-        });
+        );
 
         expect(response.status).toBe(403);
 
@@ -46,7 +52,8 @@ describe("POST /api/v1/migrations", () => {
         expect(responseBody).toEqual({
           name: "ForbiddenError",
           message: "Você não possui permissão para executar esta ação.",
-          action: 'Verifique se o seu usuário possui a feature "read:migrations".',
+          action:
+            'Verifique se o seu usuário possui a feature "read:migrations".',
           status_code: 403,
         });
       });
@@ -59,13 +66,18 @@ describe("POST /api/v1/migrations", () => {
         const createdUser = await orchestrator.createUser();
         const activatedUser = await orchestrator.activateUser(createdUser);
         await orchestrator.addFeaturesToUser(createdUser, ["read:migrations"]);
-        const sessionObject = await orchestrator.createSession(activatedUser.id);
+        const sessionObject = await orchestrator.createSession(
+          activatedUser.id,
+        );
 
-        const response = await fetch("http://localhost:3000/api/v1/migrations", {
-          headers: {
-            Cookie: `session_id=${sessionObject.token}`,
+        const response = await fetch(
+          "http://localhost:3000/api/v1/migrations",
+          {
+            headers: {
+              Cookie: `session_id=${sessionObject.token}`,
+            },
           },
-        });
+        );
 
         expect(response.status).toBe(200);
 
