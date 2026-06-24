@@ -123,8 +123,8 @@ export class ServiceError extends Error {
 export class MethodNotAllowedError extends Error {
   constructor() {
     super("Método não permitido para este endpoint.");
-    this.name = "MethodNotAllowed";
-    this.action = "Verifique se o método HTTP é válido para esse endpoint";
+    this.name = "MethodNotAllowedError";
+    this.action = "Verifique se o método HTTP é válido para esse endpoint.";
     this.statusCode = 405;
   }
 
