@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import useSWR from "swr";
 
 async function fetchAPI(key) {
