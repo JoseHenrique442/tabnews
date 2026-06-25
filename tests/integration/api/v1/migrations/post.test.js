@@ -33,18 +33,13 @@ describe("POST /api/v1/migrations", () => {
       test("Running pending migrations", async () => {
         const createdUser = await orchestrator.createUser();
         const activatedUser = await orchestrator.activateUser(createdUser);
-        const sessionObject = await orchestrator.createSession(
-          activatedUser,
-        );
+        const sessionObject = await orchestrator.createSession(activatedUser);
 
-        const response = await fetch(
-          `${webserver.origin}/api/v1/migrations`,
-          {
-            headers: {
-              Cookie: `session_id=${sessionObject.token}`,
-            },
+        const response = await fetch(`${webserver.origin}/api/v1/migrations`, {
+          headers: {
+            Cookie: `session_id=${sessionObject.token}`,
           },
-        );
+        });
 
         expect(response.status).toBe(403);
 
@@ -67,18 +62,13 @@ describe("POST /api/v1/migrations", () => {
         const createdUser = await orchestrator.createUser();
         const activatedUser = await orchestrator.activateUser(createdUser);
         await orchestrator.addFeaturesToUser(createdUser, ["read:migrations"]);
-        const sessionObject = await orchestrator.createSession(
-          activatedUser,
-        );
+        const sessionObject = await orchestrator.createSession(activatedUser);
 
-        const response = await fetch(
-          `${webserver.origin}/api/v1/migrations`,
-          {
-            headers: {
-              Cookie: `session_id=${sessionObject.token}`,
-            },
+        const response = await fetch(`${webserver.origin}/api/v1/migrations`, {
+          headers: {
+            Cookie: `session_id=${sessionObject.token}`,
           },
-        );
+        });
 
         expect(response.status).toBe(200);
 

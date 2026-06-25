@@ -129,7 +129,8 @@ describe("POST /api/v1/sessions", () => {
 
       expect(expiresAt >= createdAt).toBe(true);
       const actualLifetimeInMilliseconds = expiresAt - createdAt;
-      const lifetimeDifferenceInMilliseconds = sessions.EXPIRATION_IN_MILLISECONDS - actualLifetimeInMilliseconds;
+      const lifetimeDifferenceInMilliseconds =
+        sessions.EXPIRATION_IN_MILLISECONDS - actualLifetimeInMilliseconds;
 
       expect(lifetimeDifferenceInMilliseconds).toBeLessThanOrEqual(5000);
 
